@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "註冊成功";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<style>
+    .SignupDiv {
+        background-color: rgba(255, 255, 255, 0.5);
+        padding: 10px 0 10px 15px;
+        margin: 10vh auto 0 auto;
+        height: auto;
+        z-index: 0;
+    }
+</style>
+
+<div class="SignupDiv col-lg-6 col-sm-10">
+
+    <h2>註冊成功</h2>
+
+    <p>恭喜您完成之前的註冊程序，請前往信箱點擊Email驗證信已完成註冊的最後一個步驟！</p>
+
+    <p>@Html.ActionLink("回首頁", "Index")</p>
+
+</div>
+
+
+
+

@@ -1,0 +1,267 @@
+﻿@model LoraPlatform.ViewModel.PlatformIndexViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+<style>
+    .RightDiv {
+        height: calc(100% - 48px);
+        width: 300px;
+        position: fixed;
+        z-index: 1;
+        top: 48px;
+        left: 0;
+        background-color: rgba(154,205,255,1);
+        overflow: hidden;
+    }
+
+    .DeviceList {
+        height: calc(100% - 112px);
+        overflow-y: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+        .DeviceList::-webkit-scrollbar {
+            width: 0 !important
+        }
+
+    .RightDivA {
+        padding: 6px 8px 6px 66px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #ffffff;
+        display: block;
+        margin: 3px 3px;
+        background-color: rgba(0,153,229,1);
+        border-radius: 5px;
+    }
+
+    .RightDivAdd {
+        padding: 6px 8px 6px 66px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #ffffff;
+        display: block;
+        margin: 3px 3px;
+        background-color: rgba(31, 191, 74,1);
+        border-radius: 5px;
+    }
+
+        .RightDivAdd a {
+            text-decoration: none;
+        }
+
+    .DeviceA {
+        padding: 6px 8px 6px 8px;
+        font-size: 15px;
+        margin: 0 3px 0 30px;
+    }
+
+
+    .main {
+        font-size: 28px;
+        padding: 0 10px;
+        margin: 48px 3px 0 305px;
+        height: calc(100vh - 52px);
+        background-color: rgba(154,205,255,1);
+    }
+
+    .card {
+        background-color: rgba(229,246,255, 1);
+        border: 0;
+        margin: 3px 3px;
+        color: #000000;
+    }
+
+    .HiddenDiv {
+        visibility: hidden;
+    }
+
+    .HiddenMenu {
+        position: absolute;
+        top: 43px;
+        left: 0px;
+        background-color: rgba(5,68,109, 1);
+        width: 0px;
+        height: calc(100% - 43px);
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .MenuButton {
+        background-color: rgba(60, 60, 60, 0);
+        border: none;
+        font-size: 30px;
+        color: #000000;
+        margin: 0;
+        padding: 0;
+    }
+
+    .CloseMenu {
+        margin: 10px;
+        font-size: 30px;
+    }
+
+        .CloseMenu:focus {
+            outline: 0;
+        }
+
+    .MenuButton:focus {
+        outline: 0;
+    }
+
+    @@media only screen and (max-width:768px) {
+        .RightDiv {
+            width: 0px;
+            overflow-y: scroll;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+            .RightDiv::-webkit-scrollbar {
+                width: 0 !important
+            }
+
+        .main {
+            margin-left: 3px;
+        }
+
+        .HiddenDiv {
+            visibility: visible;
+        }
+
+        .DeviceList {
+            height: calc(100% - 150px);
+        }
+    }
+</style>
+
+<script>
+    window.onload = SetUp();
+
+    function SetUp() {
+        detector();
+        setInterval("detector()", "15000");
+    }
+</script>
+
+<div class="RightDiv">
+    <p class="RightDivA"><i class="fas fa-wifi"></i> 連接裝置</p>
+    <a data-toggle="modal" data-target="#AddConnectModal">
+        <p class="RightDivAdd"><i class="fas fa-plus"></i>新增裝置</p>
+    </a>
+    <div class="DeviceList">
+        @{
+            if (!Model.ConnectDevice.Count.Equals(0))
+            {
+                foreach (var item in Model.ConnectDevice)
+                {
+                    foreach (var wear in Model.Wears)
+                    {
+                        if (item.Elder == wear.IdCard)
+                        {
+                            <div class="card">
+                                <div class="media" style="padding:0 0 0 30px">
+                                    <img src='@Url.Content("~/Images/陳佳駿.jpg")' alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+                                    <div class="media-body">
+                                        <p></p>
+                                        <h4>@wear.Name</h4>
+                                        <p>@wear.Birthday.ToShortDateString()</p>
+                                    </div>
+                                </div>
+                                <p>
+                                    <button onclick='GetLoraData("@(item.DeviceId)")' class="btn btn-primary DeviceA"><i class="fas fa-map-marker-alt"></i> &nbsp;即時位置</button>
+                                    <button onclick='GetHistory("@(item.DeviceId)")' class="btn btn-primary DeviceA"><i class="fas fa-shoe-prints"></i> 歷史足跡</button>
+                                </p>
+                            </div>
+                        }
+                    }
+
+                }
+            }
+        }
+    </div>
+
+</div>
+
+<div class="main">
+    <div class="HiddenDiv">
+        <button type="button" class="nav-link MenuButton" onclick="ShowHiddenMenu()">
+            <i class="fa fa-bars"></i>
+        </button>
+    </div>
+    <div id="map" style="height:calc(100% - 48px); width:100%;">
+
+    </div>
+</div>
+
+<div class="HiddenMenu">
+    <p><button type="button" class="close CloseMenu"><i class="fas fa-times" style="color:#ffffff" onclick="CloseHiddenMenu()"></i></button></p>
+    <br />
+    <p class="RightDivA"><i class="fas fa-wifi"></i> 連接裝置</p>
+    <a data-toggle="modal" data-target="#AddConnectModal">
+        <p class="RightDivAdd"><i class="fas fa-plus"></i>新增裝置</p>
+    </a>
+    <div class="DeviceList">
+        @{
+            if (!Model.ConnectDevice.Count.Equals(0))
+            {
+                foreach (var item in Model.ConnectDevice)
+                {
+                    foreach (var wear in Model.Wears)
+                    {
+                        if (item.Elder == wear.IdCard)
+                        {
+                            <div class="card">
+                                <div class="media" style="padding:0 0 0 30px">
+                                    <img src='@Url.Content("~/Images/陳佳駿.jpg")' alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+                                    <div class="media-body">
+                                        <p></p>
+                                        <h4>@wear.Name</h4>
+                                        <p>@wear.Birthday.ToShortDateString()</p>
+                                    </div>
+                                </div>
+                                <p>
+                                    <button onclick='GetLoraData("@(item.DeviceId)")' class="btn btn-primary DeviceA"><i class="fas fa-map-marker-alt"></i> &nbsp;即時位置</button>
+                                    <button onclick='GetHistory("@(item.DeviceId)")' class="btn btn-primary DeviceA"><i class="fas fa-shoe-prints"></i> 歷史足跡</button>
+                                </p>
+                            </div>
+                        }
+                    }
+
+                }
+            }
+        }
+    </div>
+</div>
+
+@using (Ajax.BeginForm("AddConnect", "Platform", new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "NewConnect", OnComplete = "CloseModal" }))
+{
+
+    <div class="modal fade" id="AddConnectModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">新增裝置</h4>
+                    <button type="button" class="close" data-dismiss="modal" id="ModalClose">&times;</button>
+                </div>
+                <div class="modal-body" id="NewConnect">
+                    @{
+                        Html.RenderPartial("_AddConnect");
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

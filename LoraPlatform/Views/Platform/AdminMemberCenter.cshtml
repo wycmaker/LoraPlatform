@@ -1,0 +1,111 @@
+﻿@model LoraPlatform.ViewModel.ElderManageViewModel
+
+@{
+    ViewBag.Title = "AdminMemberCenter";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+}
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+<script>
+    function CloseModal() {
+        document.getElementById("ModalClose").click()
+    }
+
+    function openModal() {
+        $('#EditElderModal').modal('show');
+    }
+
+</script>
+
+<div class="HiddenDiv">
+    <button type="button" class="nav-link MenuButton" onclick="ShowHiddenMenu()" onblur="CloseHiddenMenu()">
+        <i class="fa fa-bars"></i>
+    </button>
+</div>
+<h1>人員管理</h1>
+<div style="text-align:right">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddElderModal">
+        <i class="fas fa-plus"></i>新增
+    </button>
+</div>
+<hr />
+<div class="Content">
+    <div class="row" id="ElderList">
+        @{
+            if (!Model.DataList.Count.Equals(0))
+            {
+                foreach (var item in Model.DataList)
+                {
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="media p-2">
+                            <img src='@Url.Content("~/Images/陳佳駿.jpg")' alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:100px;">
+                            <div class="media-body">
+                                <h4>姓名：<small>@item.Name</small></h4>
+                                <h5>生日：<small>@item.Birthday.ToShortDateString()</small></h5>
+                                <h5>身分證：<small>@item.IdCard</small></h5>
+                                <h5>性別：<small>@item.Sex</small></h5>
+                                <h5>親屬電話：<small>@item.ContactPhone</small></h5>
+                                <h5>
+                                    @Ajax.ActionLink("編輯", "EditElderModal", "Platform", new { IdCard = item.IdCard }, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "EditModal", OnComplete = "openModal" }, new { @class = "btn btn-primary" })
+                                    @Ajax.ActionLink("刪除", "DeleteElder", "Platform", new { IdCard = item.IdCard }, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "ElderList" }, new { @class = "btn btn-primary" })
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        }
+
+    </div>
+</div>
+
+@using (Ajax.BeginForm("AddElder", "Platform", new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "frmEmp", OnComplete = "CloseModal" }))
+{
+
+    <div class="modal fade" id="AddElderModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">新增成員</h4>
+                    <button type="button" class="close" data-dismiss="modal" id="ModalClose">&times;</button>
+                </div>
+                <div class="modal-body" id="frmEmp">
+
+                    @{
+                        Html.RenderPartial("_AddElder");
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@using (Ajax.BeginForm("EditElder", "Platform", new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "EditModal", OnComplete = "CloseModal" }))
+{
+
+    <div class="modal fade" id="EditElderModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">修改人員資料</h4>
+                    <button type="button" class="close" data-dismiss="modal" id="ModalClose">&times;</button>
+                </div>
+                <div class="modal-body" id="EditModal">
+
+                    @{
+                        Html.RenderPartial("_EditElder");
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

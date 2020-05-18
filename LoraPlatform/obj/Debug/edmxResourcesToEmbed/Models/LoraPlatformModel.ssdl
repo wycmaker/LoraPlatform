@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LoraPlatformModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ConnectTable">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DeviceId" Type="char" MaxLength="36" Nullable="false" />
+    <Property Name="Elder" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="Account" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Device">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DeviceId" Type="char" MaxLength="36" Nullable="false" />
+    <Property Name="ConnectState" Type="nvarchar" MaxLength="5" />
+    <Property Name="ConnectTime" Type="datetime" />
+    <Property Name="Elder" Type="char" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Elder">
+    <Key>
+      <PropertyRef Name="IdCard" />
+    </Key>
+    <Property Name="IdCard" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Birthday" Type="date" Nullable="false" />
+    <Property Name="Sex" Type="nchar" MaxLength="5" Nullable="false" />
+    <Property Name="ContactPhone" Type="char" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LoraData">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DeviceId" Type="char" MaxLength="36" Nullable="false" />
+    <Property Name="Latitude" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Longitude" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Time" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Members">
+    <Key>
+      <PropertyRef Name="Account" />
+    </Key>
+    <Property Name="Account" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar(max)" Nullable="false" />
+    <Property Name="Email" Type="varchar(max)" Nullable="false" />
+    <Property Name="Phonenumber" Type="varchar" MaxLength="20" />
+    <Property Name="AuthCode" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="isAdmin" Type="bit" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="LoraPlatformModelStoreContainer">
+    <EntitySet Name="ConnectTable" EntityType="Self.ConnectTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Device" EntityType="Self.Device" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Elder" EntityType="Self.Elder" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoraData" EntityType="Self.LoraData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Members" EntityType="Self.Members" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

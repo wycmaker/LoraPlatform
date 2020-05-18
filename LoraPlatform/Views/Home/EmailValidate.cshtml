@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Email驗證";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<style>
+    .SignupDiv {
+        background-color: rgba(255, 255, 255, 0.5);
+        padding: 10px 0 10px 15px;
+        margin: 10vh auto 0 auto;
+        height: auto;
+        z-index: 0;
+    }
+</style>
+
+<div class="SignupDiv col-lg-6 col-sm-10">
+    <h2>Email驗證</h2>
+
+    <p>@ViewData["ValidateMessage"]</p>
+    <br />
+    <p>@Html.ActionLink("Click to Sign in!", "SignIn")</p>
+    <p>@Html.ActionLink("Click to Sign up!", "SignUp")</p>
+</div>
+
+
+

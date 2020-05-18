@@ -1,0 +1,96 @@
+﻿@model LoraPlatform.ViewModel.ConnectTableViewModel
+
+@{
+    ViewBag.Title = "ConnectTable";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+}
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+<script>
+    function CloseModal() {
+        document.getElementById("ModalClose").click()
+    }
+
+    function openModal() {
+        $('#EditElderModal').modal('show');
+    }
+
+</script>
+
+<div class="HiddenDiv">
+    <button type="button" class="nav-link MenuButton" onclick="ShowHiddenMenu()" onblur="CloseHiddenMenu()">
+        <i class="fa fa-bars"></i>
+    </button>
+</div>
+<h1>裝置連接表</h1>
+<hr />
+<div class="Content">
+    <div class="row" id="DeviceTable">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+            <table class="rwd-table rwd-font">
+                <tr>
+                    <th>裝置編號</th>
+                    <th>配戴者</th>
+                    <th>連接帳號</th>
+                    <th>刪除</th>
+                </tr>
+                <tbody id="ConnectList">
+                    @{
+                        if (!Model.connectTables.Count.Equals(0))
+                        {
+                            foreach (var item in Model.connectTables)
+                            {
+                                <tr>
+                                    <td data-th="裝置編號">@item.DeviceId</td>
+                                    @{
+                                        if (!Model.Wears.Count.Equals(0))
+                                        {
+                                            foreach (var wear in Model.Wears)
+                                            {
+                                                if (wear.IdCard == item.Elder)
+                                                {
+                                                    <td data-th="配戴者">@wear.Name</td>
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <td data-th="配戴者"></td>
+                                        }
+
+                                    }
+                                    @{
+                                        if (!Model.ConnectAccount.Count.Equals(0))
+                                        {
+                                            foreach (var member in Model.ConnectAccount)
+                                            {
+                                                if (member.Account == item.Account)
+                                                {
+                                                    <td data-th="連接者">@member.Account</td>
+                                                }
+                                            }
+                                        }
+
+                                    }
+
+                                    <td data-th="刪除">
+                                        @Ajax.ActionLink("刪除", "DeleteConnect", "Platform", new { id = item.Id }, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "ConnectList" })
+                                    </td>
+                                </tr>
+
+                            }
+                        }
+                    }
+                </tbody>
+
+
+            </table>
+        </div>
+    </div>
+</div>

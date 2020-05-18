@@ -1,0 +1,100 @@
+﻿
+/* Navber CSS */
+html {
+    height: 100%;
+    width: 100%;
+}
+
+
+.navbar-brand {
+    color: #ffffff;
+}
+
+.navbar {
+    padding: 0;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+}
+
+.NavbarButton {
+    background-color: rgba(60, 60, 60, 0);
+    border: none;
+    font-size: 25px;
+    color: #ffffff;
+    visibility: hidden;
+    margin:0;
+    padding:0;
+}
+
+.NavbarButton:focus {
+        outline: 0;
+}
+
+.NavbarMenu {
+    position: absolute;
+    top: 43px;
+    right: 0px;
+    background-color: #343a40 !important;
+    width: 0px;
+    height: calc(100% - 43px);
+    overflow: hidden;
+}
+
+    .NavbarMenu a {
+        padding: 8px 0px 8px 50px;
+        text-decoration: none;
+        font-size: 15px;
+        color: #ffffff;
+        display: block;
+        transition: 0.3s;
+    }
+
+    .NavbarMenu hr {
+        width: 90%;
+        border-top: 1px solid #ffffff;
+        margin: 0 auto;
+    }
+
+    .NavbarMenu ul {
+        list-style: none;
+    }
+
+
+
+@media only screen and (max-width:768px) {
+    .NavbarHidden {
+        display: none;
+    }
+
+    .NavbarButton {
+        visibility: visible;
+        margin-right:5vw;
+    }
+
+    .NavbarMenu {
+        width: 0px;
+    }
+}
+
+@keyframes OpenNavbarMenu {
+    from {
+        width: 0px;
+    }
+
+    to {
+        width: 300px;
+    }
+}
+
+@keyframes CloseNavbarMenu {
+    from {
+        width: 300px;
+    }
+
+    to {
+        width: 0px;
+    }
+}
+
+/* Content CSS */

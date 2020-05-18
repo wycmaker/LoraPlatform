@@ -1,0 +1,333 @@
+﻿@model LoraPlatform.ViewModel.MemberCenterViewModel
+
+@{
+    ViewBag.Title = "MemberCenter";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+<script>
+    function CloseModal() {
+        document.getElementById("ModalClose").click()
+    }
+
+    function openModal() {
+        $('#EditElderModal').modal('show');
+    }
+
+</script>
+
+<style>
+    .RightDiv {
+        height: calc(100% - 48px);
+        width: 300px;
+        position: fixed;
+        z-index: 1;
+        top: 48px;
+        left: 0;
+        background-color: rgba(154,205,255,1);
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+
+
+    .RightDivA {
+        padding: 6px 8px 6px 66px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #ffffff;
+        display: block;
+        margin: 3px 3px;
+        background-color: rgba(0,153,229,1);
+        border-radius: 5px;
+    }
+
+    .RightDivAdd {
+        padding: 6px 8px 6px 66px;
+        text-decoration: none;
+        font-size: 25px;
+        color: rgba(44, 87, 242, 1);
+        display: block;
+        margin: 3px 3px;
+        background-color: rgba(235, 237, 235,1);
+        border-radius: 5px;
+    }
+
+        .RightDivAdd a {
+            text-decoration: none;
+        }
+
+    .AccountData {
+        background-color: rgba(229,246,255, 1);
+        border: 0;
+        border-radius: 5px;
+        margin: 3px 3px;
+        color: #000000;
+        padding: 15px 10px 5px 15px;
+        height: calc(100% - 190px);
+        overflow-y: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+        .AccountData::-webkit-scrollbar {
+            width: 0 !important
+        }
+
+        .AccountData p {
+            padding-left: 30px;
+        }
+
+        .AccountData hr {
+            border-top: 2px solid #9b9e9c;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+    .DeviceA {
+        padding: 6px 8px 6px 8px;
+        text-decoration: none;
+        font-size: 15px;
+        color: #ffffff;
+        margin: 0 3px 0 30px;
+        background-color: rgba(0,153,229,1);
+        border-radius: 5px;
+    }
+
+
+    .main {
+        font-size: 28px;
+        padding: 0 10px;
+        margin: 48px 3px 0 305px;
+        height: calc(100vh - 52px);
+        background-color: rgba(154,205,255,1);
+        overflow: hidden;
+    }
+
+    .card {
+        background-color: rgba(229,246,255, 1);
+        border: 0;
+        margin: 3px 3px;
+        color: #000000;
+        height: 180px;
+        width: 294px;
+    }
+
+    .HiddenDiv {
+        visibility: hidden;
+    }
+
+    .HiddenMenu {
+        position: absolute;
+        top: 43px;
+        left: 0px;
+        background-color: rgba(5,68,109, 1);
+        width: 0px;
+        height: calc(100% - 43px);
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .MenuButton {
+        background-color: rgba(60, 60, 60, 0);
+        border: none;
+        font-size: 30px;
+        color: #000000;
+        margin: 0;
+        padding: 0;
+    }
+
+    .CloseMenu {
+        margin: 10px;
+        font-size: 30px;
+    }
+
+        .CloseMenu:focus {
+            outline: 0;
+        }
+
+    .MenuButton:focus {
+        outline: 0;
+    }
+
+    .Content {
+        height: calc(100vh - 232px);
+        overflow-y: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+        .Content::-webkit-scrollbar {
+            width: 0 !important
+        }
+
+    .media {
+        background-color: rgba(229,246,255, 1);
+        border: 0;
+        margin: 3px auto;
+        color: #000000;
+    }
+
+    @@media only screen and (max-width:768px) {
+        .RightDiv {
+            width: 0px;
+        }
+
+        .main {
+            margin-left: 3px;
+        }
+
+        .HiddenDiv {
+            visibility: visible;
+        }
+
+        .AccountData {
+            height: calc(100% - 243px)
+        }
+    }
+</style>
+
+<div class="RightDiv">
+    <div class="card">
+        <div class="media" style="padding:20px 0 0 15px;margin:0">
+            <img src='@Url.Content("~/Images/陳佳駿.jpg")' alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:100px;">
+            <div class="media-body">
+                <br /><br />
+                <h3>@Model.Account.Name</h3>
+            </div>
+        </div>
+    </div>
+    <div class="AccountData">
+        <h3>會員資料</h3>
+        <div style="text-align:right;">
+            <a href='@Url.Action("EditMember", "Platform")' class="btn btn-primary">編輯</a>
+        </div>
+        <hr />
+        <h5>帳號：</h5>
+        <p>@Model.Account.Account</p>
+        <h5>密碼：</h5>
+        <p>
+            <span style="margin-right:100px">******</span>
+            <a href='@Url.Action("ChangePassword", "Home")'>修改密碼</a>
+        </p>
+        <h5>姓名：</h5>
+        <p>@Model.Account.Name</p>
+        <h5>Email：</h5>
+        <p>@Model.Account.Email</p>
+        <h5>手機號碼：</h5>
+        <p>&nbsp;0976532177</p>
+    </div>
+</div>
+
+<div class="main">
+    <div class="HiddenDiv">
+        <button type="button" class="nav-link MenuButton" onclick="ShowHiddenMenu()" onblur="CloseHiddenMenu()">
+            <i class="fa fa-bars"></i>
+        </button>
+    </div>
+    <h1>連接裝置管理</h1>
+    <div style="text-align:right">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddConnectModal">
+            <i class="fas fa-plus"></i>新增
+        </button>
+    </div>
+    <hr />
+
+    <div class="Content">
+        <div class="row" id="ElderList">
+            @{
+                if (!Model.ConnectDevice.Count.Equals(0))
+                {
+                    foreach (var item in Model.ConnectDevice)
+                    {
+                        foreach (var wear in Model.Wears)
+                        {
+                            if (item.Elder == wear.IdCard)
+                            {
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="media p-2" style="background-color:rgba(229,246,255, 1);">
+                                        <img src='@Url.Content("~/Images/陳佳駿.jpg")' alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:100px;">
+                                        <div class="media-body">
+                                            <h4>裝置Id：</h4>
+                                            <h6><small>@item.DeviceId</small></h6>
+                                            <h4>配戴者：<small>@wear.Name</small></h4>
+                                            <h4>生日：<small>@wear.Birthday.ToShortDateString()</small></h4>
+                                            <div style="text-align:right">
+                                                <h5>
+                                                    @Ajax.ActionLink("刪除", "DeleteConnect", "Platform", new { Id = item.Id }, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "ElderList" }, new { @class = "btn btn-primary" })
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<div class="HiddenMenu">
+    <p><button type="button" class="close CloseMenu"><i class="fas fa-times" style="color:#ffffff"></i></button></p>
+    <br />
+    <div class="card">
+        <div class="media" style="padding:20px 0 0 15px;margin:0">
+            <img src='@Url.Content("~/Images/陳佳駿.jpg")' alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:100px;">
+            <div class="media-body">
+                <br /><br />
+                <h3>@Model.Account.Name</h3>
+            </div>
+        </div>
+    </div>
+    <div class="AccountData">
+        <h3>會員資料</h3>
+        <div style="text-align:right;">
+            <a href='@Url.Action("EditMember", "Platform")' class="btn btn-primary">編輯</a>
+        </div>
+        <hr />
+        <h5>帳號：</h5>
+        <p>@Model.Account.Account</p>
+        <h5>密碼：</h5>
+        <p>
+            <span style="margin-right:100px">******</span>
+            <a href='@Url.Action("ChangePassword", "Home")'>修改密碼</a>
+        </p>
+        <h5>姓名：</h5>
+        <p>
+            @Model.Account.Name
+        </p>
+        <h5>Email：</h5>
+        <p>@Model.Account.Email</p>
+        <h5>手機號碼：</h5>
+        <p>&nbsp;0976532177</p>
+    </div>
+</div>
+
+@using (Ajax.BeginForm("AddConnectDevice", "Platform", new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "NewConnect", OnComplete = "CloseModal" }))
+{
+
+    <div class="modal fade" id="AddConnectModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">新增裝置</h4>
+                    <button type="button" class="close" data-dismiss="modal" id="ModalClose">&times;</button>
+                </div>
+                <div class="modal-body" id="NewConnect">
+                    @{
+                        Html.RenderPartial("_AddConnectDevice");
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

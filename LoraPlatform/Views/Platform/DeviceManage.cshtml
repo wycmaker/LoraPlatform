@@ -1,0 +1,144 @@
+﻿@model LoraPlatform.ViewModel.DeviceManageViewModel
+
+
+@{
+    ViewBag.Title = "DeviceManage";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+}
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+<script>
+    function CloseModal() {
+        document.getElementById("ModalClose").click()
+    }
+
+    function openModal() {
+        $('#EditElderModal').modal('show');
+    }
+
+</script>
+
+
+<div class="HiddenDiv">
+    <button type="button" class="nav-link MenuButton" onclick="ShowHiddenMenu()" onblur="CloseHiddenMenu()">
+        <i class="fa fa-bars"></i>
+    </button>
+</div>
+<h1>裝置管理</h1>
+<div style="text-align:right">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddDeviceModal">
+        <i class="fas fa-plus"></i>新增
+    </button>
+</div>
+<hr />
+<div class="Content">
+    <div class="row" id="DeviceTable">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+            <table class="rwd-table rwd-font">
+                <tr>
+                    <th>裝置編號</th>
+                    <th>連線狀態</th>
+                    <th>連線時間</th>
+                    <th>配戴者</th>
+                    <th>修改</th>
+                </tr>
+                @{
+                    if (!Model.DataList.Count.Equals(0))
+                    {
+                        foreach (var item in Model.DataList)
+                        {
+                            <tr>
+                                <td data-th="裝置編號">@item.DeviceId</td>
+                                <td data-th="連線狀態">@item.ConnectState</td>
+                                @{
+                                    if (item.ConnectState == "未連接")
+                                    {
+                                        <td data-th="連線時間"></td>
+                                    }
+                                    else
+                                    {
+                                        <td data-th="連線時間">@item.ConnectTime</td>
+                                    }
+                                }
+                                @{
+                                    if (!Model.Wearers.Count.Equals(0))
+                                    {
+                                        foreach (var wear in Model.Wearers)
+                                        {
+                                            if (wear.IdCard == item.Elder)
+                                            {
+                                                <td data-th="配戴者">@wear.Name</td>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <td data-th="配戴者"></td>
+                                    }
+
+                                }
+
+                                <td data-th="修改">
+                                    @Ajax.ActionLink("修改", "EditDeviceModal", "Platform", new { idcard = item.Elder, id = item.Id }, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "EditDevice", OnComplete = "openModal" }, new { })
+                                </td>
+                            </tr>
+
+                        }
+                    }
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
+
+@using (Ajax.BeginForm("AddDevice", "Platform", new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "NewDevice", OnComplete = "CloseModal" }))
+{
+
+    <div class="modal fade" id="AddDeviceModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">新增裝置</h4>
+                    <button type="button" class="close" data-dismiss="modal" id="ModalClose">&times;</button>
+                </div>
+                <div class="modal-body" id="NewDevice">
+
+                    @{
+                        Html.RenderPartial("_AddDevice");
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@using (Ajax.BeginForm("EditDevice", "Platform", new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "EditDevice", OnComplete = "CloseModal" }))
+{
+
+    <div class="modal fade" id="EditElderModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">修改裝置資料</h4>
+                    <button type="button" class="close" data-dismiss="modal" id="ModalClose">&times;</button>
+                </div>
+                <div class="modal-body" id="EditDevice">
+
+                    @{
+                            Html.RenderPartial("_EditDevice");
+                        }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+

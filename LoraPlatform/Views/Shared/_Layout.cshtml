@@ -1,0 +1,310 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+          integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <style>
+        body {
+            height: 100%;
+            width: 100%;
+            font-family: Microsoft JhengHei
+        }
+
+        nav {
+            background-color: rgba(5,68,109, 1);
+        }
+
+        .NavbarMenu {
+            z-index:20
+        }
+
+        #PictureView {
+            text-align: center;
+            width: 100%;
+        }
+
+        #SecondContent {
+            padding: 50px 50px 20px 50px;
+            width: 100%;
+            margin: 0 auto;
+            text-align:center;
+            background-color: rgba(229,246,255, 1);
+        }
+        
+        #SecondContent i {
+            font-size:25vmin;
+            margin: 30px auto;
+            color:rgba(102, 102, 101, 1);
+        }
+
+        #ThirdContent {
+            padding: 30px 30px 20px 30px;
+            width: 100%;
+            margin: 0 auto;
+            text-align:center;
+            background-color: rgba(232, 235, 232, 1);
+        }
+
+        #ThirdContent img {
+            margin: 40px auto;
+            width:80%;
+        }
+
+        .Introduce {
+            text-align:left;
+            width:70%;
+            margin:10px auto;
+        }
+
+        #FourthContent {
+            padding: 0 0 0 0;
+            width: 100%;
+            margin: 0 auto;
+            text-align:left;
+            background-color:rgba(255, 255, 255, 1);
+            overflow-x:hidden
+        }
+
+        .Feature {
+            padding: 30px 50px 20px 15%;
+            margin:0;
+            background-color: rgba(9, 115, 214,1);
+            color:rgba(230, 230, 232, 1)
+        }
+
+        .Feature h1 {
+            margin-bottom:40px;
+        }
+
+        .Feature ul {
+            list-style-type:none;
+        }
+
+        .DevicePicture {
+            padding: 30px 50px 20px 50px;
+            margin:0;
+            text-align:center;
+            width:100%;
+        }
+
+        .DevicePicture img {
+            margin: 0 auto;
+            width:70%;
+        }
+
+        #FifthContent {
+            padding: 30px 0px 20px 30px;
+            width: 100%;
+            margin: 0 auto;
+            text-align:center;
+            background-color: rgba(232, 235, 232, 1);
+        }
+
+        #FifthContent iframe {
+            width:80%;
+            height: 80vmin;
+        }
+
+        #SixthContent {
+            padding: 30px 50px 20px 50px;
+            width: 100%;
+            margin: 0 auto;
+            text-align:center;
+            background-color: rgba(229,246,255, 1);
+        }
+
+        #SixthContent img {
+            margin: 40px auto;
+            width:80%;
+        }
+
+        #SixthContent ul {
+            list-style-type:none;
+        }
+
+        .IntroduceDevice {
+            text-align:left;
+            width:80%;
+            margin:10px auto;
+        }
+
+        #SeventhContent {
+            padding: 30px 50px 20px 50px;
+            width: 100%;
+            margin: 0 auto;
+            background-color: rgba(87, 86, 86, 1);
+            color:white;
+            text-align:center;
+        }
+
+        #SeventhContent img {
+            margin:20px auto;
+            width:80%;
+        }
+
+        #SeventhContent ul {
+            list-style-type:none;
+            margin:40px auto;
+        }
+
+        .Contact {
+            text-align:left;
+            padding-left:10%
+        }
+
+
+        @@media only screen and (max-width:768px) {
+            #SecondContent {
+                padding:20px;
+            }
+
+            #SecondContent i {
+                font-size:40vmin;
+            }
+
+            #ThirdContent {
+                padding: 20px;
+            }
+
+            #ThirdContent img {
+                width:90%;
+                margin: 20px auto;
+            }
+        }
+
+        @@media (min-height: 1024px) and (max-width:768px) {
+            .Feature {
+                padding:20px 20px 20px 35%;
+            }
+        }
+
+        @@media only screen and (max-width:1024px) {
+
+            #FifthContent iframe {
+                width: 100%;
+                height: 40vmin;
+            }
+
+             #SecondContent i {
+                font-size:15vmin;
+            }
+
+        }
+
+    </style>
+</head>
+<body>
+    <script>
+        function ShowNavbarMenu() {
+            var show = document.querySelector(".NavbarMenu").style
+            console.log(document.querySelector(".NavbarMenu").style.width)
+            if (show.width == "" || show.width == "0px") {
+                show.animation = "OpenNavbarMenu 1s ease infinite"
+                show.animationIterationCount = "1"
+                show.width = "300px"
+            } else {
+                show.animation = "CloseNavbarMenu 1s ease infinite"
+                show.animationIterationCount = "1"
+                show.width = "0px"
+            }
+        }
+
+        function CloseNavbarMenu() {
+            var show = document.querySelector(".NavbarMenu").style
+            show.animation = "CloseNavbarMenu 1s ease infinite"
+            show.animationIterationCount = "1"
+            show.width = "0px"
+        }
+
+    </script>
+    <nav class="navbar navbar-expand-md fixed-top">
+        <a class="navbar-brand" href='@Url.Action("Index", "Home")' style="padding-left:5px">
+            <img src='@Url.Content("~/Images/logo.png")' alt="logo" style="width:30px">
+            I-search
+        </a>
+        <ul class="navbar-nav">
+            <li class="nav-item NavbarHidden">
+                <a class="nav-link text-white " href='@Url.Action("Index", "Home")#SecondContent'>產品介紹</a>
+            </li>
+            <li class="nav-item NavbarHidden">
+                <a class="nav-link text-white" href='@Url.Action("Index", "Home")#FifthContent'>Demo影片</a>
+            </li>
+            <li class="nav-item NavbarHidden">
+                <a class="nav-link text-white" href='@Url.Action("Index", "Home")#SixthContent'>硬體設備</a>
+            </li>
+            <li class="nav-item NavbarHidden">
+                <a class="nav-link text-white" href='@Url.Action("Index", "Platform")'>軟體平台</a>
+            </li>
+            <li class="nav-item NavbarHidden">
+                <a class="nav-link text-white" href='@Url.Action("Index", "Home")#SeventhContent'>關於我們</a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav ml-auto">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li class="nav-item NavbarHidden">
+                    <a class="nav-link text-white" href='@Url.Action("MemberCenter", "Platform")'><i class="far fa-address-card"></i> 會員中心</a>
+                </li>
+                <li class="nav-item NavbarHidden">
+                    <a class="nav-link text-white" href='@Url.Action("LogOut", "Home")'><i class="fas fa-sign-out-alt"></i>登出</a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item NavbarHidden">
+                    <a class="nav-link text-white" href='@Url.Action("SignIn", "Home")'><i class="fas fa-sign-in-alt"></i>登入</a>
+                </li>
+                <li class="nav-item NavbarHidden">
+                    <a class="nav-link text-white" href='@Url.Action("SignUp", "Home")'><i class="fas fa-user-plus"></i> 註冊</a>
+                </li>
+            }
+
+            <li class="nav-item">
+                <button type="button" class="nav-link NavbarButton" onclick="ShowNavbarMenu()" onblur="CloseNavbarMenu()">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </li>
+        </ul>
+    </nav>
+    <div class="NavbarMenu">
+        <a class="text-white" href='@Url.Action("Index", "Home")#SecondContent'>產品介紹</a>
+        <hr>
+        <a class="text-white" href='@Url.Action("Index", "Home")#FifthContent'>Demo影片</a>
+        <hr>
+        <a class="text-white" href='@Url.Action("Index", "Home")#SixthContent'>硬體設備</a>
+        <hr />
+        <a class="text-white" href='@Url.Action("Index", "Platform")'>軟體平台</a>
+        <hr>
+        <a class="text-white" href='@Url.Action("Index", "Home")#SeventhContent'>關於我們</a>
+        <hr>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a class="text-white" href='@Url.Action("MemberCenter", "Platform")'><i class="far fa-address-card"></i> 會員中心</a>
+            <hr>
+            <a class="text-white" href='@Url.Action("LogOut", "Home")'><i class="fas fa-sign-out-alt"></i>登出</a>
+        }
+        else
+        {
+            <ul class="list-group list-group-horizontal">
+                <li><a class="text-white" href='@Url.Action("SignIn", "Home")'><i class="fas fa-sign-in-alt"></i> 登入</a></li>
+                <li><a class="text-white" href='@Url.Action("SignUp", "Home")'><i class="fas fa-user-plus"></i> 註冊</a></li>
+            </ul>
+        }
+
+        <hr>
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

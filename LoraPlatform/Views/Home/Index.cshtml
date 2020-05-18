@@ -1,0 +1,260 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<style>
+    #demo {
+        margin-top: 43px;
+    }
+
+        #demo img {
+            width: 100%;
+        }
+
+        #demo a {
+            font-size: 3vmin;
+            border-radius: 10px;
+        }
+
+    #device img {
+        width: 100%;
+    }
+
+    .TopicPicture {
+        width: 70%;
+    }
+
+    @@media only screen and (min-width:1024px) {
+        .carousel-caption {
+            top: 100px;
+        }
+
+        #demo {
+            margin-top: 0;
+        }
+
+            #demo a {
+                font-size: 4vmin;
+            }
+    }
+</style>
+
+<div id="PictureView">
+    <div id="demo" class="carousel slide" data-ride="carousel">
+        <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            <li data-target="#demo" data-slide-to="1"></li>
+            <li data-target="#demo" data-slide-to="2"></li>
+        </ul>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src='@Url.Content("~/Images/7.png")'>
+                <div class="carousel-caption">
+                    <img src='@Url.Content("~/Images/demented.png")' class="TopicPicture">
+                    @{
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            <a href='@Url.Action("Index", "Platform")' class="btn btn-primary">Get Started</a>
+                        }
+                        else
+                        {
+                            <a href='@Url.Action("SignUp", "Home")' class="btn btn-primary">Sign Up for free</a>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src='@Url.Content("~/Images/2.png")'>
+                <div class="carousel-caption">
+                    <img src='@Url.Content("~/Images/demented.png")' class="TopicPicture">
+                    @{
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            <a href='@Url.Action("Index", "Platform")' class="btn btn-primary">Get Started</a>
+                        }
+                        else
+                        {
+                            <a href='@Url.Action("SignUp", "Home")' class="btn btn-primary">Sign Up for free</a>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src='@Url.Content("~/Images/3.png")'>
+                <div class="carousel-caption">
+                    <img src='@Url.Content("~/Images/demented.png")' class="TopicPicture">
+                    @{
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            <a href='@Url.Action("Index", "Platform")' class="btn btn-primary">Get Started</a>
+                        }
+                        else
+                        {
+                            <a href='@Url.Action("SignUp", "Home")' class="btn btn-primary">Sign Up for free</a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+    </div>
+</div>
+<div id="SecondContent">
+    <h1><strong>適用對象</strong></h1>
+    <div class="row">
+        <div class="col-lg-4 col-sm-12">
+            <p><i class="fas fa-home"></i></p>
+            <h2>住家</h2>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+            <p><i class="fas fa-hotel"></i></p>
+            <h2>老人照顧中心</h2>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+            <p><i class="fas fa-hospital"></i></p>
+            <h2>護理之家</h2>
+        </div>
+    </div>
+</div>
+<div id="ThirdContent">
+    <h1><strong>平台功能</strong></h1>
+    <div class="row">
+        <div class="col-lg-4 col-sm-12">
+            <img src='@Url.Content("~/Images/Position.png")' class="rounded-circle" />
+            <h2><strong>即時定位</strong></h2>
+            <div class="Introduce">
+                <h4>每10秒從伺服器取得裝置的最新位置，在平台主頁上點擊即時位置的按鈕，可以取得裝置目前所在的位置並顯示在地圖上。</h4>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+            <img src='@Url.Content("~/Images/History.png")' class="rounded-circle" />
+            <h2><strong>歷史足跡</strong></h2>
+            <div class="Introduce">
+                <h4>在平台主頁上點擊歷史足跡的按鈕，可以取得裝置最近的活動足跡，了解配戴者在配戴裝置時的活動範圍。</h4>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+            <img src='@Url.Content("~/Images/Area.png")' class="rounded-circle" />
+            <h2><strong>範圍警示</strong></h2>
+            <div class="Introduce">
+                <h4>透過設定安全範圍與警示範圍，可以進行警示功能，當裝置超出範圍時，會在平台主頁顯示警示訊息。</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="FourthContent">
+    <div class="row">
+        <div class="col-lg-6 col-sm-12 Feature">
+            <h1><strong>裝置特色</strong></h1>
+            <div>
+                <h4>無需網路連接即可使用</h4>
+                <h4>方便使用</h4>
+                <ul>
+                    <li><h5>—接上行動電源即可使用</h5></li>
+                </ul>
+                <h4>低功耗</h4>
+                <ul>
+                    <li><h5>—可連續使用一天以上</h5></li>
+                </ul>
+                <h4>伺服器架設容易</h4>
+                <ul>
+                    <li><h5>—有電腦就能快速架設環境</h5></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-12 DevicePicture">
+            <h1><strong>裝置示意圖</strong></h1>
+            <img src='@Url.Content("~/Images/Device1.png")' class="rounded" />
+        </div>
+    </div>
+</div>
+<div id="FifthContent">
+    <h1><strong>Demo影片</strong></h1>
+    <iframe src="https://drive.google.com/file/d/1nLgaTQpdu_jYo1OZzEXvGSCyV4dJuYoa/preview" allowfullscreen="true"></iframe>
+
+</div>
+<div id="SixthContent">
+    <h1><strong>硬體設備</strong></h1>
+    <div class="row">
+        <div class="col-lg-4 col-sm-12">
+            <img src='@Url.Content("~/Images/Tool1.png")' class="rounded-circle" />
+            <h2><strong>Lora晶片</strong></h2>
+            <div class="IntroduceDevice">
+                <ul>
+                    <li><h5>-頻段為433MHz</h5></li>
+                    <li><h5>-輸入電壓為5V / 3.3V</h5></li>
+                    <li><h5>-主要功能模組為RFM95</h5></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+            <img src='@Url.Content("~/Images/Tool2.png")' class="rounded-circle" />
+            <h2><strong>Lotus開發版</strong></h2>
+            <div class="IntroduceDevice">
+                <ul>
+                    <li><h5>-與Arduino UNO完全兼容</h5></li>
+                    <li><h5>-板上有12個Grove接口</h5></li>
+                    <li><h5>-使用Micro USB上傳程式碼和供電</h5></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+            <img src='@Url.Content("~/Images/Tool3.png")' class="rounded-circle" />
+            <h2><strong>GPS晶片</strong></h2>
+            <div class="IntroduceDevice">
+                <ul>
+                    <li><h5>-兼容Arduino平台</h5></li>
+                    <li><h5>-透過TinyGPS++函式庫取得GPS座標</h5></li>
+                    <li><h5>-提供1Hz~10Hz可調式定位更新頻率</h5></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="SeventhContent">
+    <div class="row">
+        <div class="col-lg-4 col-sm-12">
+            <h2><strong>單位</strong></h2>
+            <img src='@Url.Content("~/Images/nqu.png")' class="rounded" />
+            <img src='@Url.Content("~/Images/nqucsie.png")' class="rounded" />
+        </div>
+        <div class="col-lg-4 col-sm-12 Contact">
+            <h2><strong>指導教授</strong></h2>
+            <ul>
+                <li><h4>趙于翔	副教授</h4></li>
+                <li>
+                    <h4>連絡電話：</h4>
+                    <ul style="margin:0">
+                        <li><h5>(082)313537</h5></li>
+                    </ul>
+                </li>
+                <li>
+                    <h4>Email：</h4>
+                    <ul style="margin:0">
+                        <li><h5>yxzhao@nqu.edu.tw</h5></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+        <div class="col-lg-4 col-sm-12 Contact">
+            <h2><strong>成員</strong></h2>
+            <ul>
+                <li><h4>資工四 蘇家禹</h4></li>
+                <li><h4>資工四 王岳駿</h4></li>
+                <li><h4>資工四 馮志揚</h4></li>
+                <li><h4>資工四 陳佳駿</h4></li>
+                <li><h4>資工四 陳憲億</h4></li>
+            </ul>
+        </div>
+    </div>
+    <div style="text-align: center">
+        <p>國立金門大學資工系 版權所有 Copyright © National Quemoy University. All Rights Reserved.</p>
+        <p>建議瀏覽器：Chrome, firefox, IE11.0 以上版本。</p>
+    </div>
+</div>
